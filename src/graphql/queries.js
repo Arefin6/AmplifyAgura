@@ -6,6 +6,10 @@ export const getMarket = /* GraphQL */ `
     getMarket(id: $id) {
       id
       name
+      tags
+      owner
+      createdAt
+      updatedAt
       products {
         items {
           id
@@ -18,10 +22,6 @@ export const getMarket = /* GraphQL */ `
         }
         nextToken
       }
-      tags
-      owner
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -35,15 +35,66 @@ export const listMarkets = /* GraphQL */ `
       items {
         id
         name
-        products {
-          nextToken
-        }
         tags
         owner
         createdAt
         updatedAt
+        products {
+          nextToken
+        }
       }
       nextToken
+    }
+  }
+`;
+export const getUser = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
+      id
+      username
+      email
+      registerd
+      orders {
+        items {
+          id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const searchMarkets = /* GraphQL */ `
+  query SearchMarkets(
+    $filter: SearchableMarketFilterInput
+    $sort: SearchableMarketSortInput
+    $limit: Int
+    $nextToken: String
+    $from: Int
+  ) {
+    searchMarkets(
+      filter: $filter
+      sort: $sort
+      limit: $limit
+      nextToken: $nextToken
+      from: $from
+    ) {
+      items {
+        id
+        name
+        tags
+        owner
+        createdAt
+        updatedAt
+        products {
+          nextToken
+        }
+      }
+      nextToken
+      total
     }
   }
 `;
@@ -55,13 +106,13 @@ export const getProduct = /* GraphQL */ `
       market {
         id
         name
-        products {
-          nextToken
-        }
         tags
         owner
         createdAt
         updatedAt
+        products {
+          nextToken
+        }
       }
       file {
         bucket
@@ -106,57 +157,6 @@ export const listProducts = /* GraphQL */ `
         updatedAt
       }
       nextToken
-    }
-  }
-`;
-export const getUser = /* GraphQL */ `
-  query GetUser($id: ID!) {
-    getUser(id: $id) {
-      id
-      username
-      email
-      registerd
-      orders {
-        items {
-          id
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const searchMarkets = /* GraphQL */ `
-  query SearchMarkets(
-    $filter: SearchableMarketFilterInput
-    $sort: SearchableMarketSortInput
-    $limit: Int
-    $nextToken: String
-    $from: Int
-  ) {
-    searchMarkets(
-      filter: $filter
-      sort: $sort
-      limit: $limit
-      nextToken: $nextToken
-      from: $from
-    ) {
-      items {
-        id
-        name
-        products {
-          nextToken
-        }
-        tags
-        owner
-        createdAt
-        updatedAt
-      }
-      nextToken
-      total
     }
   }
 `;

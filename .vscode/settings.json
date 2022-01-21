@@ -8,9 +8,8 @@
     "amplify/backend/amplify-meta.json": true,
     "amplify/backend/awscloudformation": true
   },
-   // emmet
-   "emmet.triggerExpansionOnTab": true,
-   "emmet.includeLanguages": {
-     "javascript": "javascriptreact"
-   }
+  "emmet.triggerExpansionOnTab": true,
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  }
 }

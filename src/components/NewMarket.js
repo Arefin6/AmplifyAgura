@@ -1,6 +1,10 @@
+/* eslint-disable no-template-curly-in-string */
 import React from "react";
 // prettier-ignore
- import { Form, Button, Dialog, Input, Select, Notification } from 'element-react';
+ import { Form, Button, Dialog, Input, Notification } from 'element-react';
+ import {API,graphqlOperation} from 'aws-amplify';
+import { createMarket } from '../graphql/mutations';
+import { UserContext } from "../App";
 
 class NewMarket extends React.Component {
   state = {
@@ -8,13 +12,31 @@ class NewMarket extends React.Component {
     addMarketDialog:false
   };
 
-  handleAddToMarket = () =>{
-    console.log(this.state.name);
+  handleAddToMarket = async (user) =>{
+    try{
+    this.setState({addMarketDialog:false})
+    const input ={
+      name:this.state.name,
+      owner:user.username
+    }
+    const result = await API.graphql(graphqlOperation(createMarket,{input}));
+    console.info(`Created market: id ${result.data.createMarket.id}`)
+    console.log(result)
+    this.setState({name:""})
+  }
+   catch(err){
+    console.log(err) 
+    Notification.error({
+      title:"Error",
+      message:`${err.message || "Error Adding TO market"}`
+    })
+   }
   }
 
   render() {
     return (
-      <>
+      <UserContext.Consumer>
+      {({user}) =><> 
        <div className="market-header">
          <h1 className="market-title">
            Create Your Market Place 
@@ -40,6 +62,7 @@ class NewMarket extends React.Component {
                <Input
                 placeholder="Market Name"
                 trim={true}
+                value={this.state.name}
                 onChange={name => this.setState({name})}
                />
             </Form.Item>
@@ -52,13 +75,14 @@ class NewMarket extends React.Component {
           <Button
            type="primary"
            disabled={!this.state.name}
-           onClick={this.handleAddToMarket}
+           onClick={() =>this.handleAddToMarket(user)}
           >
             Add
           </Button>
         </Dialog.Footer>        
        </Dialog>
-      </>
+       </>}
+      </UserContext.Consumer>
     )
   }
 }

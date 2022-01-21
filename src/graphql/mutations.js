@@ -9,6 +9,10 @@ export const createMarket = /* GraphQL */ `
     createMarket(input: $input, condition: $condition) {
       id
       name
+      tags
+      owner
+      createdAt
+      updatedAt
       products {
         items {
           id
@@ -21,10 +25,6 @@ export const createMarket = /* GraphQL */ `
         }
         nextToken
       }
-      tags
-      owner
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -36,6 +36,10 @@ export const updateMarket = /* GraphQL */ `
     updateMarket(input: $input, condition: $condition) {
       id
       name
+      tags
+      owner
+      createdAt
+      updatedAt
       products {
         items {
           id
@@ -48,10 +52,6 @@ export const updateMarket = /* GraphQL */ `
         }
         nextToken
       }
-      tags
-      owner
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -63,6 +63,10 @@ export const deleteMarket = /* GraphQL */ `
     deleteMarket(input: $input, condition: $condition) {
       id
       name
+      tags
+      owner
+      createdAt
+      updatedAt
       products {
         items {
           id
@@ -75,106 +79,6 @@ export const deleteMarket = /* GraphQL */ `
         }
         nextToken
       }
-      tags
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createProduct = /* GraphQL */ `
-  mutation CreateProduct(
-    $input: CreateProductInput!
-    $condition: ModelProductConditionInput
-  ) {
-    createProduct(input: $input, condition: $condition) {
-      id
-      description
-      market {
-        id
-        name
-        products {
-          nextToken
-        }
-        tags
-        owner
-        createdAt
-        updatedAt
-      }
-      file {
-        bucket
-        region
-        key
-      }
-      price
-      shipped
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateProduct = /* GraphQL */ `
-  mutation UpdateProduct(
-    $input: UpdateProductInput!
-    $condition: ModelProductConditionInput
-  ) {
-    updateProduct(input: $input, condition: $condition) {
-      id
-      description
-      market {
-        id
-        name
-        products {
-          nextToken
-        }
-        tags
-        owner
-        createdAt
-        updatedAt
-      }
-      file {
-        bucket
-        region
-        key
-      }
-      price
-      shipped
-      owner
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteProduct = /* GraphQL */ `
-  mutation DeleteProduct(
-    $input: DeleteProductInput!
-    $condition: ModelProductConditionInput
-  ) {
-    deleteProduct(input: $input, condition: $condition) {
-      id
-      description
-      market {
-        id
-        name
-        products {
-          nextToken
-        }
-        tags
-        owner
-        createdAt
-        updatedAt
-      }
-      file {
-        bucket
-        region
-        key
-      }
-      price
-      shipped
-      owner
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -231,6 +135,26 @@ export const createOrder = /* GraphQL */ `
   ) {
     createOrder(input: $input, condition: $condition) {
       id
+      user {
+        id
+        username
+        email
+        registerd
+        orders {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      shippingAddress {
+        city
+        country
+        address_line1
+        address_state
+        address_zip
+      }
+      createdAt
+      updatedAt
       product {
         id
         description
@@ -253,24 +177,100 @@ export const createOrder = /* GraphQL */ `
         createdAt
         updatedAt
       }
-      user {
+    }
+  }
+`;
+export const createProduct = /* GraphQL */ `
+  mutation CreateProduct(
+    $input: CreateProductInput!
+    $condition: ModelProductConditionInput
+  ) {
+    createProduct(input: $input, condition: $condition) {
+      id
+      description
+      market {
         id
-        username
-        email
-        registerd
-        orders {
-          nextToken
-        }
+        name
+        tags
+        owner
         createdAt
         updatedAt
+        products {
+          nextToken
+        }
       }
-      shippingAddress {
-        city
-        country
-        address_line1
-        address_state
-        address_zip
+      file {
+        bucket
+        region
+        key
       }
+      price
+      shipped
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateProduct = /* GraphQL */ `
+  mutation UpdateProduct(
+    $input: UpdateProductInput!
+    $condition: ModelProductConditionInput
+  ) {
+    updateProduct(input: $input, condition: $condition) {
+      id
+      description
+      market {
+        id
+        name
+        tags
+        owner
+        createdAt
+        updatedAt
+        products {
+          nextToken
+        }
+      }
+      file {
+        bucket
+        region
+        key
+      }
+      price
+      shipped
+      owner
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteProduct = /* GraphQL */ `
+  mutation DeleteProduct(
+    $input: DeleteProductInput!
+    $condition: ModelProductConditionInput
+  ) {
+    deleteProduct(input: $input, condition: $condition) {
+      id
+      description
+      market {
+        id
+        name
+        tags
+        owner
+        createdAt
+        updatedAt
+        products {
+          nextToken
+        }
+      }
+      file {
+        bucket
+        region
+        key
+      }
+      price
+      shipped
+      owner
       createdAt
       updatedAt
     }

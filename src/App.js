@@ -7,6 +7,10 @@ import HomePage from './pages/HomePage';
 import ProfilePage from './pages/ProfilePage';
 import MarketPage from './pages/MarketPage';
 import Navbar from './components/Navbar';
+import Tabel from './pages/Tabel';
+
+
+export const UserContext = React.createContext()
 
 class App extends React.Component {
   state = {
@@ -16,9 +20,8 @@ class App extends React.Component {
   componentDidMount(){
      this.getUserData();
      Hub.listen('auth',this,'onHubCapsule')
+    
   }
-
-
 
   getUserData =  async () =>{
      const user = await Auth.currentAuthenticatedUser();
@@ -51,9 +54,11 @@ class App extends React.Component {
 
   render() {
     const {user} = this.state
+    console.log(this.state.user)
     return !user ?(
        <Authenticator theme={theme}/>   
     ):(
+      <UserContext.Provider value={{user}} >
       <Router>
         <>
          {/* navigation */}
@@ -61,6 +66,7 @@ class App extends React.Component {
         {/* {Routes} */}
          <div className="app-container">
             <Route exact path="/" component={HomePage} />
+            <Route exact path="/tab" component={Tabel} />
             <Route  path="/profile" component={ProfilePage} />
             <Route exact path="/markets/:marketId" component={({match})=><MarketPage marketId = {match.params.marketId}/>} />
             
@@ -68,6 +74,7 @@ class App extends React.Component {
 
         </>
       </Router>
+      </UserContext.Provider>
     )
   }
 }

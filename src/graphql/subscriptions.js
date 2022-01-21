@@ -6,6 +6,10 @@ export const onCreateMarket = /* GraphQL */ `
     onCreateMarket {
       id
       name
+      tags
+      owner
+      createdAt
+      updatedAt
       products {
         items {
           id
@@ -18,10 +22,6 @@ export const onCreateMarket = /* GraphQL */ `
         }
         nextToken
       }
-      tags
-      owner
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -30,6 +30,10 @@ export const onUpdateMarket = /* GraphQL */ `
     onUpdateMarket {
       id
       name
+      tags
+      owner
+      createdAt
+      updatedAt
       products {
         items {
           id
@@ -42,10 +46,6 @@ export const onUpdateMarket = /* GraphQL */ `
         }
         nextToken
       }
-      tags
-      owner
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -54,6 +54,10 @@ export const onDeleteMarket = /* GraphQL */ `
     onDeleteMarket {
       id
       name
+      tags
+      owner
+      createdAt
+      updatedAt
       products {
         items {
           id
@@ -66,10 +70,6 @@ export const onDeleteMarket = /* GraphQL */ `
         }
         nextToken
       }
-      tags
-      owner
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -81,13 +81,13 @@ export const onCreateProduct = /* GraphQL */ `
       market {
         id
         name
-        products {
-          nextToken
-        }
         tags
         owner
         createdAt
         updatedAt
+        products {
+          nextToken
+        }
       }
       file {
         bucket
@@ -110,13 +110,13 @@ export const onUpdateProduct = /* GraphQL */ `
       market {
         id
         name
-        products {
-          nextToken
-        }
         tags
         owner
         createdAt
         updatedAt
+        products {
+          nextToken
+        }
       }
       file {
         bucket
@@ -139,13 +139,13 @@ export const onDeleteProduct = /* GraphQL */ `
       market {
         id
         name
-        products {
-          nextToken
-        }
         tags
         owner
         createdAt
         updatedAt
+        products {
+          nextToken
+        }
       }
       file {
         bucket
