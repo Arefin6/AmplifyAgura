@@ -1,7 +1,7 @@
 /* eslint-disable no-template-curly-in-string */
 import React from "react";
 // prettier-ignore
- import { Form, Button, Dialog, Input, Notification } from 'element-react';
+ import { Form, Button, Dialog, Input, Notification, Select } from 'element-react';
  import {API,graphqlOperation} from 'aws-amplify';
 import { createMarket } from '../graphql/mutations';
 import { UserContext } from "../App";
@@ -9,20 +9,30 @@ import { UserContext } from "../App";
 class NewMarket extends React.Component {
   state = {
     name:"",
+    tags:["Sports","Arts","Technology","Web dev"],
+    selectedTags:[],
+    options:[],
     addMarketDialog:false
   };
+  handleFilterTags = query =>{
+     const options = this.state.tags
+       .map(tag => ({value:tag,label:tag}))
+       .filter(tag => tag.label.toLocaleLowerCase().includes(query.toLocaleLowerCase()))
+       this.setState({options})
+  }
 
   handleAddToMarket = async (user) =>{
     try{
     this.setState({addMarketDialog:false})
     const input ={
       name:this.state.name,
-      owner:user.username
+      owner:user.username,
+      tags:this.state.selectedTags
     }
     const result = await API.graphql(graphqlOperation(createMarket,{input}));
     console.info(`Created market: id ${result.data.createMarket.id}`)
     console.log(result)
-    this.setState({name:""})
+    this.setState({name : "", selectedTags:[] });
   }
    catch(err){
     console.log(err) 
@@ -65,6 +75,24 @@ class NewMarket extends React.Component {
                 value={this.state.name}
                 onChange={name => this.setState({name})}
                />
+            </Form.Item>
+            <Form.Item label="Add Tags">
+               <Select
+                multiple={true}
+                placeholder="Select Tags"
+                filterable={true}
+                onChange={selectedTags => this.setState({selectedTags})}
+                remoteMethod={this.handleFilterTags}
+                remote={true}
+               >
+               {this.state.options.map(option =>(
+                 <Select.Option
+                 key={option.value}
+                 option={option.label}
+                 value={option.value}
+                 />
+               ))}
+              </Select> 
             </Form.Item>
           </Form>
         </Dialog.Body>
