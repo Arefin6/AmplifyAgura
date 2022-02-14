@@ -8,11 +8,27 @@ import  Error from './Error';
 import { Link } from "react-router-dom";
 
 const MarketList = () => {
+  
+   const onNewMarket = (prevQuery,newData) =>{
 
+    console.log("Hello");
+     
+    let updatedQuery = {...prevQuery};
+
+    const updatedMarketList = [
+      newData.onCreateMarket,
+      ...prevQuery.listMarkets.items
+    ]
+    updatedQuery.listMarkets.item = updatedMarketList;
+     
+    return updatedQuery;
+   }
 
   return(
         <Connect 
         query={graphqlOperation(listMarkets)}
+        subscription={graphqlOperation(onCreateMarket)}
+        onSubscriptionMsg={() => onNewMarket}
         >
          {({data,loading,errors})=>{
            if(errors.length>0)return <Error errors={errors}/>
