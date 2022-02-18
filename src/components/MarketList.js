@@ -10,8 +10,6 @@ import { Link } from "react-router-dom";
 const MarketList = () => {
   
    const onNewMarket = (prevQuery,newData) =>{
-
-    console.log("Hello");
      
     let updatedQuery = {...prevQuery};
 
@@ -26,9 +24,9 @@ const MarketList = () => {
 
   return(
         <Connect 
-        query={graphqlOperation(listMarkets)}
-        subscription={graphqlOperation(onCreateMarket)}
-        onSubscriptionMsg={() => onNewMarket}
+          query={graphqlOperation(listMarkets)}
+          subscription={graphqlOperation(onCreateMarket)}
+          onSubscriptionMsg={onNewMarket}
         >
          {({data,loading,errors})=>{
            if(errors.length>0)return <Error errors={errors}/>
