@@ -67,6 +67,38 @@ export const getUser = /* GraphQL */ `
     }
   }
 `;
+
+
+export const listFavoriteBooks = /* GraphQL */ `
+  query ListFavoriteBooks(
+    $filter: ModelFavoriteBookFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listFavoriteBooks(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        email
+        bookId
+        books {
+          id
+          title
+          description
+          image
+          ageId
+          bookType
+          authorName
+          authorId
+        }
+        isLiked
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+
 export const searchMarkets = /* GraphQL */ `
   query SearchMarkets(
     $filter: SearchableMarketFilterInput
@@ -75,13 +107,7 @@ export const searchMarkets = /* GraphQL */ `
     $nextToken: String
     $from: Int
   ) {
-    searchMarkets(
-      filter: $filter
-      sort: $sort
-      limit: $limit
-      nextToken: $nextToken
-      from: $from
-    ) {
+    searchMarkets( filter: $filter,sort: $sort,limit: $limit, nextToken: $nextToken,from: $from) {
       items {
         id
         name

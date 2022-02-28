@@ -31,7 +31,6 @@ class NewMarket extends React.Component {
     }
     const result = await API.graphql(graphqlOperation(createMarket,{input}));
     console.info(`Created market: id ${result.data.createMarket.id}`)
-    console.log(result)
     this.setState({name : "", selectedTags:[] });
   }
    catch(err){
@@ -42,7 +41,7 @@ class NewMarket extends React.Component {
     })
    }
   }
-
+  
   render() {
     return (
       <UserContext.Consumer>
@@ -83,7 +82,7 @@ class NewMarket extends React.Component {
 
         </div>
 
-
+         
        <Dialog
         title="Create New Market"
         visible={this.state.addMarketDialog}

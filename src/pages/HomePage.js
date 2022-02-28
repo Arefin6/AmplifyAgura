@@ -25,8 +25,8 @@ class HomePage extends React.Component {
           or: [
             {name:{match:this.state.searchTerm}},
             {owner:{match:this.state.searchTerm}},
-            {tags:{match:this.state.searchTerm}}
-          ]
+            {tags:{match:this.state.searchTerm}},
+            ],
         },
           sort:{
             field:"createdAt",
@@ -38,10 +38,11 @@ class HomePage extends React.Component {
         searchResults:result.data.searchMarkets.items,
         isSearching:false
       })
-      console.log({result})
+      console.log(result)
+    
     
     } catch (error) {
-      
+      console.log(error)
     }
    
   }
@@ -56,7 +57,9 @@ class HomePage extends React.Component {
        handleClearSearch={this.handleClearSearch}
        handleSearch={this.handleSearch}
        ></NewMarket>
-       <MarketList></MarketList>
+       <MarketList
+       searchResults={this.state.searchResults}
+       ></MarketList>
       </>
     );
   }
