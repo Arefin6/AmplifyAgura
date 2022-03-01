@@ -9,7 +9,7 @@ import Product from './../components/Product';
 
 
 class MarketPage extends React.Component {
-  state = {market:null,isLoading:true,isMarketOwner:false};
+  state = {market:{},isLoading:true,isMarketOwner:false};
   componentDidMount(){
     this.handleGetMarket()
   }
@@ -18,7 +18,6 @@ class MarketPage extends React.Component {
       id:this.props.marketId
     }
     const result = await API.graphql(graphqlOperation(getMarket,input))
-    console.log({result})
     this.setState({market:result.data.getMarket,isLoading:false},()=>{
       this.checkMarketOwner()
     })
@@ -29,13 +28,15 @@ class MarketPage extends React.Component {
     const {market} = this.state;
 
     if(user){
-      this.setState({isMarketOwner:user.userName === market.owner})
+      this.setState({isMarketOwner:user.username === market.owner})
     }
 
   }
 
+
   render() {
      const{market,isLoading,isMarketOwner} = this.state;
+  
       return isLoading ?(
         <Loading  fullscreen={true} />
       ):(
@@ -54,7 +55,7 @@ class MarketPage extends React.Component {
           </div>
           <Tabs type="coder-card" value={isMarketOwner ? "1":"2"}>
             {
-              isMarketOwner && (
+              isMarketOwner &&(
                <Tabs.Pane
                label={
                  <>
