@@ -17,6 +17,9 @@ export const getMarket = /* GraphQL */ `
           price
           shipped
           owner
+          file{
+          key
+          }
           createdAt
           updatedAt
         }

@@ -2,11 +2,33 @@
 import React from "react";
 import { API,graphqlOperation } from "aws-amplify";
  import { Loading, Tabs, Icon } from "element-react";
-import { getMarket } from '../graphql/queries';
 import { Link } from "react-router-dom";
-import NewProduct from './../components/NewProduct';
 import Product from './../components/Product';
 
+const getMarket = `query GetMarket($id: ID!) {
+  getMarket(id: $id) {
+    id
+    name
+    products(sortDirection: DESC, limit: 999) {
+      items {
+        id
+        description
+        price
+        shipped
+        owner
+        file {
+          key
+        }
+        createdAt
+      }
+      nextToken
+    }
+    tags
+    owner
+    createdAt
+  }
+}
+`;
 
 class MarketPage extends React.Component {
   state = {market:{},isLoading:true,isMarketOwner:false};
@@ -36,7 +58,6 @@ class MarketPage extends React.Component {
 
   render() {
      const{market,isLoading,isMarketOwner} = this.state;
-  
       return isLoading ?(
         <Loading  fullscreen={true} />
       ):(
@@ -53,43 +74,44 @@ class MarketPage extends React.Component {
                     {market.createdAt}
              </span>
           </div>
-          <Tabs type="coder-card" value={isMarketOwner ? "1":"2"}>
-            {
-              isMarketOwner &&(
-               <Tabs.Pane
-               label={
-                 <>
-                 <Icon name="plus" className="icon"/>
-                 Add Product
-                 </>
-               }
-               name="1"
-               >
-                <NewProduct/>
-               </Tabs.Pane>
-              )
-            }
+          <Tabs type="border-card" value={isMarketOwner ? "1" : "2"}>
+          {isMarketOwner && (
+            <Tabs.Pane
+              label={
+                <>
+                  <Icon name="plus" className="icon" />
+                  Add Product
+                </>
+              }
+              name="1"
+            >
+              {/* {isEmailVerified ? (
+                <NewProduct marketId={this.props.marketId} />
+              ) : (
+                <Link to="/profile" className="header">
+                  Verify Your Email Before Adding Products
+                </Link>
+              )} */}
+            </Tabs.Pane>
+          )}
 
-             {/* product List */}
-
-             <Tabs.Pane
-             
-             label={
+          {/* Products List */}
+          <Tabs.Pane
+            label={
               <>
-              <Icon name="menu" className="icon"/>
-               Product({market.products.items.length})
+                <Icon name="menu" className="icon" />
+                Products ({market.products.items.length})
               </>
             }
             name="2"
-             >
-              {/* <div className="product-list">
-                {market.products.items.map(product =>(
-                  <Product product={product}/>
-                ))}
-              </div> */}
-             </Tabs.Pane>
-
-          </Tabs>
+          >
+            <div className="product-list">
+              {market.products.items.map(product => (
+                <Product key={product.id} product={product} />
+              ))}
+            </div>
+          </Tabs.Pane>
+        </Tabs>
         </>
       )
   }
