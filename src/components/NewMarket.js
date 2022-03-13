@@ -29,7 +29,7 @@ class NewMarket extends React.Component {
       owner:user.username,
       tags:this.state.selectedTags
     }
-    const result = await API.graphql(graphqlOperation(createMarket,{input}));
+    const result = await API.graphql(graphqlOperation(createMarket,{input,authMode: 'AMAZON_COGNITO_USER_POOLS'}));
     console.info(`Created market: id ${result.data.createMarket.id}`)
     this.setState({name : "", selectedTags:[] });
   }

@@ -9,7 +9,7 @@ const Navbar = ({user,handleSignOut}) => {
                <Nav.Item index="1">
                    <NavLink to='/' className="nav-link">
                       <span className='app-title'>
-                         <img src='https://icon.now.sh/account_balance/f90' alt="logo" className='App Icon'/>
+                      <i className="fa-solid fa-house" style={{margin:"10px"}}></i>
                          AmplifyAgora
                       </span>
                    </NavLink>

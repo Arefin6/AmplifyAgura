@@ -8,7 +8,7 @@ import aws_exports from './aws-exports';
 // Bring in default Element React theme
 import "element-theme-default";
 
-AwsAmplify.configure(aws_exports)
+AwsAmplify.configure(aws_exports);
 
 ReactDOM.render(<App />, document.getElementById("root"));
 

@@ -6,10 +6,6 @@ export const onCreateMarket = /* GraphQL */ `
     onCreateMarket {
       id
       name
-      tags
-      owner
-      createdAt
-      updatedAt
       products {
         items {
           id
@@ -19,9 +15,15 @@ export const onCreateMarket = /* GraphQL */ `
           owner
           createdAt
           updatedAt
+          marketProductsId
+          orderProductId
         }
         nextToken
       }
+      tags
+      owner
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -30,10 +32,6 @@ export const onUpdateMarket = /* GraphQL */ `
     onUpdateMarket {
       id
       name
-      tags
-      owner
-      createdAt
-      updatedAt
       products {
         items {
           id
@@ -43,9 +41,15 @@ export const onUpdateMarket = /* GraphQL */ `
           owner
           createdAt
           updatedAt
+          marketProductsId
+          orderProductId
         }
         nextToken
       }
+      tags
+      owner
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -54,10 +58,6 @@ export const onDeleteMarket = /* GraphQL */ `
     onDeleteMarket {
       id
       name
-      tags
-      owner
-      createdAt
-      updatedAt
       products {
         items {
           id
@@ -67,27 +67,33 @@ export const onDeleteMarket = /* GraphQL */ `
           owner
           createdAt
           updatedAt
+          marketProductsId
+          orderProductId
         }
         nextToken
       }
+      tags
+      owner
+      createdAt
+      updatedAt
     }
   }
 `;
 export const onCreateProduct = /* GraphQL */ `
-  subscription OnCreateProduct($owner: String!) {
+  subscription OnCreateProduct($owner: String) {
     onCreateProduct(owner: $owner) {
       id
       description
       market {
         id
         name
+        products {
+          nextToken
+        }
         tags
         owner
         createdAt
         updatedAt
-        products {
-          nextToken
-        }
       }
       file {
         bucket
@@ -99,24 +105,26 @@ export const onCreateProduct = /* GraphQL */ `
       owner
       createdAt
       updatedAt
+      marketProductsId
+      orderProductId
     }
   }
 `;
 export const onUpdateProduct = /* GraphQL */ `
-  subscription OnUpdateProduct($owner: String!) {
+  subscription OnUpdateProduct($owner: String) {
     onUpdateProduct(owner: $owner) {
       id
       description
       market {
         id
         name
+        products {
+          nextToken
+        }
         tags
         owner
         createdAt
         updatedAt
-        products {
-          nextToken
-        }
       }
       file {
         bucket
@@ -128,24 +136,26 @@ export const onUpdateProduct = /* GraphQL */ `
       owner
       createdAt
       updatedAt
+      marketProductsId
+      orderProductId
     }
   }
 `;
 export const onDeleteProduct = /* GraphQL */ `
-  subscription OnDeleteProduct($owner: String!) {
+  subscription OnDeleteProduct($owner: String) {
     onDeleteProduct(owner: $owner) {
       id
       description
       market {
         id
         name
+        products {
+          nextToken
+        }
         tags
         owner
         createdAt
         updatedAt
-        products {
-          nextToken
-        }
       }
       file {
         bucket
@@ -157,6 +167,8 @@ export const onDeleteProduct = /* GraphQL */ `
       owner
       createdAt
       updatedAt
+      marketProductsId
+      orderProductId
     }
   }
 `;
