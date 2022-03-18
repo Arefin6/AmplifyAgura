@@ -1,50 +1,24 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const searchMarkets = /* GraphQL */ `
-  query SearchMarkets(
-    $filter: SearchableMarketFilterInput
-    $sort: [SearchableMarketSortInput]
-    $limit: Int
-    $nextToken: String
-    $from: Int
-    $aggregates: [SearchableMarketAggregationInput]
-  ) {
-    searchMarkets(
-      filter: $filter
-      sort: $sort
-      limit: $limit
-      nextToken: $nextToken
-      from: $from
-      aggregates: $aggregates
-    ) {
-      items {
-        id
-        name
-        products {
-          nextToken
+export const getUser = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
+      id
+      username
+      email
+      registered
+      orders {
+        items {
+          id
+          createdAt
+          updatedAt
+          userOrdersId
         }
-        tags
-        owner
-        createdAt
-        updatedAt
+        nextToken
       }
-      nextToken
-      total
-      aggregateItems {
-        name
-        result {
-          ... on SearchableAggregateScalarResult {
-            value
-          }
-          ... on SearchableAggregateBucketResult {
-            buckets {
-              key
-              doc_count
-            }
-          }
-        }
-      }
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -93,6 +67,53 @@ export const listMarkets = /* GraphQL */ `
         updatedAt
       }
       nextToken
+    }
+  }
+`;
+export const searchMarkets = /* GraphQL */ `
+  query SearchMarkets(
+    $filter: SearchableMarketFilterInput
+    $sort: [SearchableMarketSortInput]
+    $limit: Int
+    $nextToken: String
+    $from: Int
+    $aggregates: [SearchableMarketAggregationInput]
+  ) {
+    searchMarkets(
+      filter: $filter
+      sort: $sort
+      limit: $limit
+      nextToken: $nextToken
+      from: $from
+      aggregates: $aggregates
+    ) {
+      items {
+        id
+        name
+        products {
+          nextToken
+        }
+        tags
+        owner
+        createdAt
+        updatedAt
+      }
+      nextToken
+      total
+      aggregateItems {
+        name
+        result {
+          ... on SearchableAggregateScalarResult {
+            value
+          }
+          ... on SearchableAggregateBucketResult {
+            buckets {
+              key
+              doc_count
+            }
+          }
+        }
+      }
     }
   }
 `;
@@ -159,27 +180,6 @@ export const listProducts = /* GraphQL */ `
         orderProductId
       }
       nextToken
-    }
-  }
-`;
-export const getUser = /* GraphQL */ `
-  query GetUser($id: ID!) {
-    getUser(id: $id) {
-      id
-      username
-      email
-      registered
-      orders {
-        items {
-          id
-          createdAt
-          updatedAt
-          userOrdersId
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
     }
   }
 `;

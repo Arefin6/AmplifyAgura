@@ -45,7 +45,7 @@ class NewProduct extends React.Component {
     }
  
     const input ={
-       productMarketId: this.props.marketId,
+       marketProductsId: this.props.marketId,
        description:this.state.description,
        shipped:this.state.shipped,
        price:ConventDollarToCents(this.state.price),

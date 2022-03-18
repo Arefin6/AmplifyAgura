@@ -2,8 +2,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateMarket = /* GraphQL */ `
-  subscription OnCreateMarket {
-    onCreateMarket {
+  subscription OnCreateMarket($owner: String) {
+    onCreateMarket(owner: $owner) {
       id
       name
       products {
@@ -28,8 +28,8 @@ export const onCreateMarket = /* GraphQL */ `
   }
 `;
 export const onUpdateMarket = /* GraphQL */ `
-  subscription OnUpdateMarket {
-    onUpdateMarket {
+  subscription OnUpdateMarket($owner: String) {
+    onUpdateMarket(owner: $owner) {
       id
       name
       products {
@@ -54,8 +54,8 @@ export const onUpdateMarket = /* GraphQL */ `
   }
 `;
 export const onDeleteMarket = /* GraphQL */ `
-  subscription OnDeleteMarket {
-    onDeleteMarket {
+  subscription OnDeleteMarket($owner: String) {
+    onDeleteMarket(owner: $owner) {
       id
       name
       products {

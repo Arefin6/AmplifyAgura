@@ -63,7 +63,6 @@ class Product extends React.Component {
           };   
   
   render() {
-    console.log("Product Comp");
     const {product} = this.props;
     const {
       updateProductDialog,
@@ -89,9 +88,7 @@ class Product extends React.Component {
               <h3 className="m-0">{product.description}</h3>
 
               <div className="items-center">
-                <img src={`https://icon.now.sh/${
-                          product.shipped ? "markunread_mailbox" : "mail"
-                        }`} alt="Shipped-icon" className="icon" />
+                 {product.shipped ? <i className="fa-solid fa-cart-flatbed" style={{marginTop:"10px"}}></i>: <i className="fa-solid fa-envelope" style={{marginTop:"10px"}}></i> }
                 {product.shipped ? "shipped": "emailed"}
               </div>
 

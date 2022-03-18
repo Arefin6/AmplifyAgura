@@ -47,9 +47,6 @@ class App extends React.Component {
     } 
    
  }
-
-
-
   onHubCapsule = capsule =>{
 
     switch(capsule.payload.event){
