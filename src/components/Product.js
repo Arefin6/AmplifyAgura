@@ -104,7 +104,7 @@ class Product extends React.Component {
             </div>
           </Card>
             <div className="text-center">
-              {!isProductOwner && (
+              {isProductOwner && (
                 <>
                  <Button
                  type="warning"

@@ -10,7 +10,7 @@ const PayButton = ({product,user}) => {
    }
    const handleCharge = async(token) =>{
      try {
-      const result = await API.post("orderApi", "/charge", {
+      const result = await API.post("orderapi", "/charge", {
        body:{
         token,
         charge: {

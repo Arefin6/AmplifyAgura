@@ -129,7 +129,6 @@ class MarketPage extends React.Component {
 
   render() {
     const { market, isLoading, isMarketOwner, isEmailVerified } = this.state;
-     console.log(market)
     return isLoading ? (
       <Loading fullscreen={true} />
     ) : (

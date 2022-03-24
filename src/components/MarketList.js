@@ -1,18 +1,16 @@
 import React from "react";
  import { Loading, Card, Tag, Icon } from "element-react";
 import {Connect} from 'aws-amplify-react';
-import {API,graphqlOperation } from "aws-amplify";
+import {graphqlOperation } from "aws-amplify";
 import {listMarkets} from '../graphql/queries';
 import {onCreateMarket} from '../graphql/subscriptions';
 import  Error from './Error';
 import { Link } from "react-router-dom";
 
 
-
 const MarketList = ({searchResults}) => {
 
     //  const [marketList,setListMarket] = useState([]);
-
   
    const onNewMarket = (prevQuery,newData) =>{
      
@@ -27,21 +25,6 @@ const MarketList = ({searchResults}) => {
     return updatedQuery;
    }
 
- 
-
-
-   let fetchMarketList = async () => {
-   
-    const createdTodo = await API.graphql({
-      query: listMarkets,
-      authMode: 'API_KEY'
-    });
-    console.log(createdTodo)
-   }
-
-   fetchMarketList()
-
-   
 
   return(
         <Connect 
@@ -90,7 +73,7 @@ const MarketList = ({searchResults}) => {
                            <span style={{color:'var(--darkAmazonOrange)'}}>
                              {market.products.items}
                            </span>
-                           <i class="fas-fa fa-cart-circle-check"></i>
+                           <i className="fas-fa fa-cart-circle-check"></i>
                             
                          </span>
                            <div style={{color:"var(--lightSquidInk)"}}>
